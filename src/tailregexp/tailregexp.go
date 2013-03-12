@@ -7,6 +7,7 @@ import (
 	"io"
 	"log"
 	"os"
+	"regexp"
 	"time"
 )
 
@@ -17,6 +18,11 @@ func main() {
 	flag.Parse()
 	println("logfile to watch: ", *filePath)
 	println("regex to match: ", *regex)
+
+	r, err := regexp.Compile(*regex)
+	if err != nil {
+		panic(err)
+	}
 
 	file, err := os.Open(*filePath)
 	if err != nil {
@@ -30,6 +36,13 @@ func main() {
 	for {
 		line := <-lineChan
 		println(line)
+
+		if r.MatchString(line) == true {
+			regexGroup := r.FindStringSubmatch(line)
+			for k,v := range regexGroup {
+				println("Match: [",k,"]=", v)
+			}
+		}
 	}
 }
 
