@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"bytes"
+	"flag"
 	"io"
 	"log"
 	"os"
@@ -11,7 +12,13 @@ import (
 
 func main() {
 
-	file, err := os.Open("tail.txt")
+	filePath := flag.String("file", "tail.txt", "file to watch")
+	regex := flag.String("regex", `(.*)`, "regex to match")
+	flag.Parse()
+	println("logfile to watch: ", *filePath)
+	println("regex to match: ", *regex)
+
+	file, err := os.Open(*filePath)
 	if err != nil {
 		panic(err)
 	}
@@ -22,7 +29,7 @@ func main() {
 
 	for {
 		line := <-lineChan
-		log.Printf("line: %s \n", line)
+		println(line)
 	}
 }
 
