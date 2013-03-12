@@ -35,12 +35,12 @@ func main() {
 
 	for {
 		line := <-lineChan
-		println(line)
+		//println(line)
 
 		if r.MatchString(line) == true {
 			regexGroup := r.FindStringSubmatch(line)
-			for k,v := range regexGroup {
-				println("Match: [",k,"]=", v)
+			for k, v := range regexGroup {
+				println("Match: [", k, "]=", v)
 			}
 		}
 	}
