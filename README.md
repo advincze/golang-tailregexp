@@ -3,12 +3,12 @@ tailregexp
 
 install
  
-	$> cd tailregexp
-	$> go install ./...
+	$ cd tailregexp
+	$ go install ./...
 use
 
-	$> bin/tailregexp 
+	$ bin/tailregexp 
 			-file='/path/to/logfile.log' -regex='(.*)ERROR(.*)'
 get help
  
-	$> bin/tailregexp -help
+	$ bin/tailregexp -help
